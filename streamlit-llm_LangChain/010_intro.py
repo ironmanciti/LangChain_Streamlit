@@ -10,7 +10,7 @@ from langchain_openai import ChatOpenAI
 
 # 사용자 입력에 대한 응답을 반환하는 함수입니다.
 def load_answer(question):
-    llm = ChatOpenAI(model="gpt-4o-mini")
+    llm = ChatOpenAI(model="gpt-4.1-nano")
     answer = llm.invoke(question)
     return answer
 

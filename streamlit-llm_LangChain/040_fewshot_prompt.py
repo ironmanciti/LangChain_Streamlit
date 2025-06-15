@@ -122,7 +122,7 @@ def getLLMResponse(user_input, home_option, max_tokens):
     )
     
     # max_tokens 매개변수를 사용해 최대 응답 길이를 설정합니다.
-    llm =  ChatOpenAI(model="gpt-4o-mini", max_tokens=max_tokens)
+    llm =  ChatOpenAI(model="gpt-4.1-nano", max_tokens=max_tokens)
 
     # LLM 응답 생성
     response = llm(new_prompt_template.format(user_input=user_input, home_option=home_option))

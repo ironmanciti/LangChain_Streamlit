@@ -15,7 +15,7 @@ from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from streamlit_chat import message  # 채팅 말풍선 형태로 메시지를 보여줍니다.
 
 # LLM 초기화
-llm = ChatOpenAI(model="gpt-4o-mini")
+llm = ChatOpenAI(model="gpt-4.1-nano")
 
 # ---------------------------------------------------------------------------------
 # 페이지 설정
