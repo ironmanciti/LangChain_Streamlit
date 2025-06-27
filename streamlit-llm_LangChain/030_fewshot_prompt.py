@@ -125,7 +125,8 @@ def getLLMResponse(user_input, home_option, max_tokens):
     llm =  ChatOpenAI(model="gpt-4.1-nano", max_tokens=max_tokens)
 
     # LLM 응답 생성
-    response = llm(new_prompt_template.format(user_input=user_input, home_option=home_option))
+    prompt = new_prompt_template.format(user_input=user_input, home_option=home_option)
+    response = llm.invoke(prompt)
     return response
 
 # **Streamlit UI 시작**

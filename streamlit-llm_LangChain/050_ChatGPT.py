@@ -10,6 +10,7 @@ from langchain_openai import ChatOpenAI
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import StateGraph, START, MessagesState
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 # streamlit_chat 라이브러리
 from streamlit_chat import message  # 채팅 말풍선 형태로 메시지를 보여줍니다.
@@ -42,10 +43,16 @@ if "app" not in st.session_state:
     # 1) LangGraph의 워크플로우(StateGraph) 정의
     workflow = StateGraph(state_schema=MessagesState)
 
-    # 2) 모델 호출 함수 정의
+    # 1-1) 프롬프트 템플릿 정의 (표준 구조 적용)
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "당신은 친구처럼 말합니다. 모든 질문에 최선을 다해 대답하세요."),
+        MessagesPlaceholder(variable_name="messages"),
+    ])
+
+    # 2) 모델 호출 함수 정의 (프롬프트 템플릿 적용)
     def call_model(state: MessagesState):
-        response = llm.invoke(state["messages"])
-        # 모델의 응답을 메시지 리스트에 추가
+        prompt = prompt_template.invoke({"messages": state["messages"]})
+        response = llm.invoke(prompt)
         return {"messages": response}
 
     # 3) 노드 및 엣지 연결
